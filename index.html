@@ -33,16 +33,6 @@
     padding: 110px 0 0;
     position: relative;
   }
-  .hero::before {
-    content: "";
-    position: absolute;
-    top: -140px; left: 50%;
-    transform: translateX(-50%);
-    width: 1100px; height: 560px;
-    background: radial-gradient(50% 50% at 50% 40%, rgba(10, 132, 255, 0.14), rgba(100, 210, 255, 0.05) 55%, transparent 75%);
-    pointer-events: none;
-    z-index: -1;
-  }
   .hero h1 {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
     font-size: 64px;
@@ -84,22 +74,13 @@
 
   /* ---- Demo video ---- */
   .demo { padding: 64px 0 100px; position: relative; }
-  .demo::before {
-    content: "";
-    position: absolute;
-    inset: 0 4% 6%;
-    background: radial-gradient(55% 60% at 50% 55%, rgba(10, 132, 255, 0.22), rgba(100, 210, 255, 0.08) 60%, transparent 78%);
-    filter: blur(36px);
-    pointer-events: none;
-    z-index: 0;
-  }
   .demo-frame {
     position: relative;
     z-index: 1;
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 30px 60px rgba(13, 60, 120, 0.22);
-    background: #000;
+    box-shadow: 0 24px 56px rgba(0,0,0,0.14);
+    background: #f0f1f4;
     line-height: 0;
   }
   .demo-frame video, .demo-frame svg { width: 100%; height: auto; display: block; }
@@ -110,37 +91,38 @@
   .stage {
     position: relative;
     aspect-ratio: 12 / 7;
-    background: linear-gradient(150deg, #14161c 0%, #131722 55%, #101b2e 100%);
+    background: linear-gradient(180deg, #f2f3f6 0%, #e7e9ee 100%);
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     animation: scene 11s infinite;
   }
   .menubar {
     position: absolute; top: 0; left: 0; right: 0; height: 4.5%;
-    background: #1e1e20;
+    background: rgba(251, 251, 253, 0.95);
+    border-bottom: 1px solid #dddde2;
   }
   .zone {
     position: absolute; top: 6.5%; left: 72%; width: 26%; height: 91.5%;
-    border: 1.5px dashed rgba(100, 170, 255, 0.45);
+    border: 1.5px dashed rgba(0, 102, 204, 0.4);
     border-radius: 10px;
-    background: rgba(100, 170, 255, 0.06);
+    background: rgba(0, 102, 204, 0.05);
     opacity: 0;
     animation: zone 11s infinite;
   }
   .win {
     position: absolute;
-    background: #26262a;
-    border: 1px solid #3a3a40;
+    background: #ffffff;
+    border: 1px solid #d9d9de;
     border-radius: 9px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.14);
   }
   .win .bar {
     height: 16%;
     max-height: 26px;
     display: flex; align-items: center; gap: 6px;
     padding: 0 10px;
-    border-bottom: 1px solid #333338;
-    color: #9a9aa2;
+    border-bottom: 1px solid #ececf0;
+    color: #86868b;
     font-size: clamp(8px, 1.3vw, 13px);
   }
   .win .dots {
@@ -153,19 +135,21 @@
   .win .lines { padding: 8% 10px 0; }
   .win .lines i {
     display: block; height: 5px; border-radius: 3px;
-    background: #38383e; margin-bottom: 8px;
+    background: #e6e6eb; margin-bottom: 8px;
   }
   .win .lines i:nth-child(2) { width: 82%; }
   .win .lines i:nth-child(3) { width: 64%; }
   .browser  { left: 5%;  top: 9%;  width: 50%; height: 76%; animation: browser 11s infinite; z-index: 3; }
   .notes    { left: 42%; top: 22%; width: 30%; height: 46%; animation: notes 11s infinite; z-index: 2; }
   .terminal { left: 14%; top: 44%; width: 32%; height: 42%; animation: terminal 11s infinite; z-index: 4; }
-  .terminal .lines i { background: #2f4a35; }
+  .terminal { background: #26282f; border-color: #3a3c44; }
+  .terminal .bar { color: #9a9aa2; border-bottom-color: #37393f; }
+  .terminal .lines i { background: #3a5c44; }
   .chip {
     position: absolute; left: 50%; bottom: 6%;
     transform: translateX(-50%);
-    background: rgba(255,255,255,0.92);
-    color: #1d1d1f;
+    background: rgba(29, 29, 31, 0.88);
+    color: #fff;
     font-size: clamp(11px, 1.8vw, 17px);
     font-weight: 600;
     padding: 8px 18px;
