@@ -204,6 +204,44 @@
     .stage, .stage * { animation-play-state: paused !important; }
   }
 
+  /* ---- Floating header ---- */
+  .floatbar {
+    position: fixed;
+    top: 14px; left: 50%;
+    transform: translateX(-50%) translateY(-90px);
+    width: min(980px, calc(100% - 28px));
+    background: rgba(22, 22, 23, 0.88);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 12px 22px;
+    z-index: 100;
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s;
+    pointer-events: none;
+  }
+  .floatbar.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .floatbar .name { color: #f5f5f7; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .floatbar .right { display: flex; align-items: center; gap: 14px; }
+  .floatbar .price { color: #86868b; font-size: 14px; }
+  .floatbar .buy {
+    background: #0071e3;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    padding: 9px 18px;
+    border-radius: 980px;
+    text-decoration: none;
+  }
+  .floatbar .buy:hover { background: #0077ed; }
+
   /* ---- Text animations ---- */
   .hero h1, .hero .sub, .hero .cta-row, .hero .fineprint {
     opacity: 0;
@@ -338,6 +376,14 @@
 </style>
 </head>
 <body>
+
+<div class="floatbar" id="floatbar" aria-hidden="true">
+  <span class="name">SideBySide</span>
+  <span class="right">
+    <span class="price">$9.99 · one-time</span>
+    <a class="buy" href="https://buy.polar.sh/polar_cl_fU0BwZDv6YNs9AY599AOBSj0W2eXsQXDpxNgu4Wvm6Z">Buy</a>
+  </span>
+</div>
 
 <header class="hero wrap">
   <h1>Your key apps.<br><span class="grad">Always in sight.</span></h1>
@@ -499,6 +545,16 @@
     });
   }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
   targets.forEach(function (el) { io.observe(el); });
+  // ヒーローの購入ボタンが見えなくなったらフローティングヘッダーを出す
+  var bar = document.getElementById("floatbar");
+  var heroCta = document.querySelector(".hero .cta-row");
+  if (bar && heroCta) {
+    new IntersectionObserver(function (entries) {
+      var out = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+      bar.classList.toggle("show", out);
+      bar.setAttribute("aria-hidden", out ? "false" : "true");
+    }, { threshold: 0 }).observe(heroCta);
+  }
 })();
 </script>
 </body>
