@@ -33,7 +33,7 @@
   /* ---- Hero ---- */
   .hero {
     text-align: center;
-    padding: 110px 0 0;
+    padding: 72px 0 0;
     position: relative;
   }
   .hero h1 {
@@ -57,7 +57,7 @@
     margin: 22px auto 0;
     max-width: 640px;
   }
-  .cta-row { margin-top: 34px; display: flex; gap: 22px; justify-content: center; align-items: center; }
+  .cta-row { margin-top: 26px; display: flex; gap: 22px; justify-content: center; align-items: center; }
   .btn {
     display: inline-block;
     background: var(--blue);
@@ -90,10 +90,10 @@
   .textlink { color: var(--blue); font-size: 17px; text-decoration: none; }
   .textlink:hover { text-decoration: underline; }
   .textlink::after { content: " ›"; }
-  .fineprint { color: var(--text-subdued); font-size: 12px; margin-top: 16px; }
+  .fineprint { color: var(--text-subdued); font-size: 12px; margin-top: 12px; }
 
   /* ---- Demo video ---- */
-  .demo { padding: 64px 0 100px; position: relative; }
+  .demo { padding: 36px 0 100px; position: relative; }
   .demo-frame {
     position: relative;
     z-index: 1;
@@ -439,14 +439,13 @@
   .floatbar .dl:hover { background: rgba(255,255,255,0.22); }
 
   /* ---- Text animations ---- */
-  .hero h1, .hero .sub, .hero .cta-row, .hero .fineprint {
+  .hero h1, .hero .cta-row, .hero .fineprint {
     opacity: 0;
     transform: translateY(22px);
     animation: lift 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
-  .hero .sub { animation-delay: 0.12s; }
-  .hero .cta-row { animation-delay: 0.24s; }
-  .hero .fineprint { animation-delay: 0.32s; }
+  .hero .cta-row { animation-delay: 0.12s; }
+  .hero .fineprint { animation-delay: 0.2s; }
   @keyframes lift {
     to { opacity: 1; transform: translateY(0); }
   }
@@ -466,7 +465,7 @@
   }
   .reveal.in { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) {
-    .hero h1, .hero .sub, .hero .cta-row, .hero .fineprint { animation: none; opacity: 1; transform: none; }
+    .hero h1, .hero .cta-row, .hero .fineprint { animation: none; opacity: 1; transform: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
 
@@ -583,7 +582,6 @@
 
 <header class="hero wrap">
   <h1>Your key apps.<br><span class="grad">Always in sight.</span></h1>
-  <p class="sub">SideBySide reserves a strip of your screen for the apps you always come back to — and keeps everything else out of it.</p>
   <div class="cta-row">
     <a class="badge" href="https://github.com/ddnnn-a/sidebyside/releases/latest/download/SideBySide.dmg" aria-label="Download for macOS">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702z"/></svg>
