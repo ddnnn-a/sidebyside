@@ -91,19 +91,30 @@
   .demo-caption kbd { font-family: inherit; }
 
   /* ---- Animated demo (11s loop) ---- */
+  /* 中身は cqw（ステージ幅基準）で組み、フレーム幅に比例して縮める */
   .stage {
     position: relative;
     aspect-ratio: 12 / 7;
-    background: linear-gradient(180deg, #f2f3f6 0%, #e7e9ee 100%);
+    container: stage / inline-size;
+    background: linear-gradient(180deg, #eef0f4 0%, #e1e4ea 100%);
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.3;
     animation: scene 11s infinite;
   }
   .menubar {
     position: absolute; top: 0; left: 0; right: 0; height: 4.5%;
+    display: flex; align-items: center; gap: 1.7cqw;
+    padding: 0 1.6cqw;
     background: rgba(251, 251, 253, 0.95);
     border-bottom: 1px solid #dddde2;
+    font-size: 1.05cqw;
+    color: #1d1d1f;
+    white-space: nowrap;
   }
+  .menubar b { font-weight: 600; }
+  .menubar .mb-right { margin-left: auto; display: flex; align-items: center; gap: 1.4cqw; }
+  .menubar svg { width: 1.5cqw; height: 1.5cqw; display: block; }
   .zone {
     position: absolute; top: 6.5%; left: 72%; width: 26%; height: 91.5%;
     border: 1.5px dashed rgba(0, 102, 204, 0.4);
@@ -114,48 +125,160 @@
   }
   .win {
     position: absolute;
+    display: flex; flex-direction: column;
     background: #ffffff;
-    border: 1px solid #d9d9de;
-    border-radius: 9px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.14);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 0.9cqw;
+    box-shadow: 0 1.2cqw 2.8cqw rgba(0, 0, 0, 0.16);
+    overflow: hidden;
   }
   .win .bar {
-    height: 16%;
-    max-height: 26px;
-    display: flex; align-items: center; gap: 6px;
-    padding: 0 10px;
-    border-bottom: 1px solid #ececf0;
-    color: #86868b;
-    font-size: clamp(8px, 1.3vw, 13px);
+    flex: none;
+    position: relative;
+    height: 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    background: #f6f6f8;
+    border-bottom: 1px solid #e6e6eb;
+    color: #6e6e73;
+    font-size: 1cqw;
+    font-weight: 600;
   }
   .win .dots {
-    width: 8px; height: 8px; border-radius: 50%;
+    position: absolute; left: 1cqw; top: 50%;
+    width: 0.8cqw; height: 0.8cqw; margin-top: -0.4cqw;
+    border-radius: 50%;
     background: #ff5f57;
-    box-shadow: 13px 0 0 #febc2e, 26px 0 0 #28c840;
-    margin-right: 26px;
-    flex-shrink: 0;
+    box-shadow: 1.2cqw 0 0 #febc2e, 2.4cqw 0 0 #28c840;
   }
-  .win .lines { padding: 8% 10px 0; }
-  .win .lines i {
-    display: block; height: 5px; border-radius: 3px;
-    background: #e6e6eb; margin-bottom: 8px;
+  .claude { top: 8%; height: 88.5%; width: 58%; left: 4%; z-index: 3; animation: claude 11s infinite; }
+  .slack  { z-index: 4; animation: slack 11s infinite; }
+  .gcal   { z-index: 5; animation: gcal 11s infinite; }
+
+  /* Claude Code（ターミナル） */
+  .claude { background: #1e1f22; border-color: #3a3c44; }
+  .claude .bar { background: #2a2b2f; color: #a1a1a8; border-bottom-color: #37393f; font-weight: 500; }
+  .term {
+    flex: 1;
+    padding: 1.3cqw 1.5cqw;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 1.1cqw;
+    line-height: 1.6;
+    color: #d4d4d8;
+    white-space: nowrap;
+    overflow: hidden;
   }
-  .win .lines i:nth-child(2) { width: 82%; }
-  .win .lines i:nth-child(3) { width: 64%; }
-  .browser  { left: 5%;  top: 9%;  width: 50%; height: 76%; animation: browser 11s infinite; z-index: 3; }
-  .notes    { left: 42%; top: 22%; width: 30%; height: 46%; animation: notes 11s infinite; z-index: 2; }
-  .terminal { left: 14%; top: 44%; width: 32%; height: 42%; animation: terminal 11s infinite; z-index: 4; }
-  .terminal { background: #26282f; border-color: #3a3c44; }
-  .terminal .bar { color: #9a9aa2; border-bottom-color: #37393f; }
-  .terminal .lines i { background: #3a5c44; }
+  .term .in { padding-left: 2ch; }
+  .term .in2 { padding-left: 5ch; }
+  .term > div { overflow: hidden; }
+  .term .welcome {
+    display: inline-block;
+    border: 1px solid #d97757;
+    border-radius: 0.5cqw;
+    padding: 0.5cqw 1.2cqw;
+    margin-bottom: 1.1cqw;
+  }
+  .term .accent { color: #d97757; }
+  .term .dim { color: #85858d; }
+  .term .me { color: #ffffff; }
+  .term .ok { color: #5fd28a; }
+  .term .add { color: #7ee2a0; background: rgba(95, 210, 138, 0.12); }
+  .term .del { color: #ff8b82; background: rgba(255, 123, 114, 0.12); }
+  .term .cursor { display: inline-block; width: 0.62em; height: 1.15em; vertical-align: -0.2em; background: #d4d4d8; animation: blink 1s steps(1) infinite; }
+  .t1 { animation: t1 11s infinite; }
+  .t2 { animation: t2 11s infinite; }
+  .t3 { animation: t3 11s infinite; }
+  .t4 { animation: t4 11s infinite; }
+  .tspin { animation: tspin 11s infinite; }
+
+  /* Slack 風 */
+  .slack .bar { background: #350d36; border-bottom-color: #350d36; }
+  .slack .search {
+    width: 52%; height: 1.4cqw; line-height: 1.4cqw;
+    border-radius: 0.4cqw;
+    background: rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85cqw; font-weight: 400;
+    text-align: center;
+  }
+  .sl { flex: 1; display: flex; min-height: 0; }
+  .sl-side {
+    flex: none; width: 30%;
+    background: #3f0e40;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.9cqw;
+    padding: 1cqw 0;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .sl-side span { display: block; padding: 0.25cqw 0.9cqw; }
+  .sl-side .ws { color: #fff; font-weight: 700; font-size: 1.05cqw; padding-bottom: 0.9cqw; }
+  .sl-side .on { background: #1164a3; color: #fff; }
+  .sl-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .sl-head { flex: none; padding: 0.7cqw 1cqw; border-bottom: 1px solid #ececf0; font-size: 1cqw; font-weight: 700; }
+  .sl-msgs {
+    flex: 1; min-height: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden;
+    padding: 0 1cqw 0.4cqw;
+  }
+  .msg { display: flex; gap: 0.7cqw; padding: 0.5cqw 0; font-size: 0.9cqw; }
+  .msg .av {
+    flex: none; width: 2cqw; height: 2cqw; border-radius: 0.45cqw;
+    background: var(--c);
+    color: #fff; font-style: normal; font-weight: 700; font-size: 0.95cqw;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .msg b { font-weight: 700; }
+  .msg small { color: #86868b; font-size: 0.75cqw; margin-left: 0.3cqw; }
+  .msg p { color: #1d1d1f; }
+  .msg.new { border-radius: 0.4cqw; animation: newmsg 11s infinite; }
+  .sl-compose {
+    flex: none;
+    margin: 0 1cqw 1cqw;
+    border: 1px solid #c9c9ce; border-radius: 0.6cqw;
+    padding: 0.6cqw 0.8cqw;
+    color: #9a9aa0; font-size: 0.9cqw;
+  }
+
+  /* Google カレンダー風 */
+  .gc-head { flex: none; display: flex; align-items: center; gap: 0.9cqw; padding: 0.7cqw 1cqw; font-size: 1.05cqw; white-space: nowrap; }
+  .gc-head b { font-weight: 500; color: #3c4043; }
+  .gc-head .today { border: 1px solid #dadce0; border-radius: 0.5cqw; padding: 0.15cqw 0.7cqw; font-size: 0.85cqw; color: #3c4043; }
+  .gc-days, .gc-body { display: grid; grid-template-columns: 3.2cqw repeat(3, 1fr); }
+  .gc-days { flex: none; border-bottom: 1px solid #dadce0; padding-bottom: 0.4cqw; }
+  .gc-days span { text-align: center; font-size: 0.7cqw; color: #70757a; letter-spacing: 0.04em; }
+  .gc-days span b { display: block; margin: 0.15cqw auto 0; width: 2.1cqw; height: 2.1cqw; line-height: 2.1cqw; border-radius: 50%; font-size: 1.1cqw; font-weight: 400; color: #3c4043; letter-spacing: 0; }
+  .gc-days .is-today { color: #1a73e8; }
+  .gc-days .is-today b { background: #1a73e8; color: #fff; }
+  .gc-body { flex: 1; min-height: 0; position: relative; }
+  .gc-hours { position: relative; }
+  .gc-hours span { position: absolute; right: 0.4cqw; font-size: 0.65cqw; color: #70757a; transform: translateY(-50%); }
+  .gc-col {
+    position: relative;
+    border-left: 1px solid #dadce0;
+    background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(100% / 6 - 1px), #ececf0 calc(100% / 6 - 1px), #ececf0 calc(100% / 6));
+  }
+  .ev {
+    position: absolute; left: 0.2cqw; right: 0.3cqw;
+    border-radius: 0.35cqw;
+    background: var(--c);
+    color: #fff;
+    font-size: 0.72cqw; font-weight: 500; line-height: 1.2;
+    padding: 0.1cqw 0.35cqw;
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  }
+  .gc-now { position: absolute; left: -1px; right: 0; height: 2px; background: #ea4335; }
+  .gc-now::before { content: ""; position: absolute; left: -0.45cqw; top: -0.35cqw; width: 0.9cqw; height: 0.9cqw; border-radius: 50%; background: #ea4335; }
+
+  .stage .pointer { position: absolute; width: 1.9cqw; z-index: 10; opacity: 0; animation: pointer 11s infinite; }
   .chip {
     position: absolute; left: 50%; bottom: 6%;
     transform: translateX(-50%);
     background: rgba(29, 29, 31, 0.88);
     color: #fff;
-    font-size: clamp(11px, 1.8vw, 17px);
+    font-size: 1.7cqw;
     font-weight: 600;
-    padding: 8px 18px;
+    padding: 0.8cqw 1.8cqw;
     border-radius: 980px;
     opacity: 0;
     z-index: 9;
@@ -173,25 +296,67 @@
     14%, 92% { opacity: 1; }
     96%, 100% { opacity: 0; }
   }
-  /* メモ: 散らかり → 右列全高 → 上半分に分割 */
-  @keyframes notes {
-    0%, 9%   { left: 42%; top: 22%; width: 30%; height: 46%; }
+  /* Slack: 散らかり → 右列全高 → 上半分に分割 */
+  @keyframes slack {
+    0%, 9%   { left: 48%; top: 12%; width: 30%; height: 50%; }
     16%, 24% { left: 73%; top: 8%;  width: 24%; height: 88.5%; }
     32%, 92% { left: 73%; top: 8%;  width: 24%; height: 43%; }
-    96%, 100% { left: 42%; top: 22%; width: 30%; height: 46%; }
+    96%, 100% { left: 48%; top: 12%; width: 30%; height: 50%; }
   }
-  /* ターミナル: 散らかり → 右列下半分 */
-  @keyframes terminal {
-    0%, 25%  { left: 14%; top: 44%; width: 32%; height: 42%; }
+  /* カレンダー: 散らかり → 右列下半分 */
+  @keyframes gcal {
+    0%, 25%  { left: 31%; top: 49%; width: 32%; height: 44%; }
     32%, 92% { left: 73%; top: 53.5%; width: 24%; height: 43%; }
-    96%, 100% { left: 14%; top: 44%; width: 32%; height: 42%; }
+    96%, 100% { left: 31%; top: 49%; width: 32%; height: 44%; }
   }
-  /* ブラウザ: 右へドラッグして列に重なる → 押し戻される */
-  @keyframes browser {
-    0%, 42%  { left: 5%;  top: 9%; }
-    50%, 54% { left: 21%; top: 9%; }   /* 列に食い込む */
-    62%, 92% { left: 5.5%; top: 9%; }  /* 押し出し */
-    96%, 100% { left: 5%; top: 9%; }
+  /* Claude Code: 右へドラッグして列に重なる → 押し戻される。掴んだ時点で最前面へ */
+  @keyframes claude {
+    0%, 35%  { left: 4%; z-index: 3; }
+    36%, 42% { left: 4%; z-index: 6; }
+    50%, 54% { left: 20%; z-index: 6; }
+    62%, 92% { left: 13%; z-index: 6; }
+    96%, 100% { left: 4%; z-index: 3; }
+  }
+  @keyframes pointer {
+    0%, 35%  { left: 40%; top: 22%; opacity: 0; }
+    39%, 42% { left: 34%; top: 9.2%; opacity: 1; }
+    50%, 53% { left: 50%; top: 9.2%; opacity: 1; }
+    57%, 100% { left: 50%; top: 9.2%; opacity: 0; }
+  }
+  /* ターミナル出力: ドッキングの裏で Claude Code が作業を進める */
+  @keyframes t1 {
+    0%, 11%  { max-height: 0; opacity: 0; }
+    14%, 94% { max-height: 8em; opacity: 1; }
+    95%, 100% { max-height: 0; opacity: 0; }
+  }
+  @keyframes t2 {
+    0%, 29%  { max-height: 0; opacity: 0; }
+    32%, 94% { max-height: 8em; opacity: 1; }
+    95%, 100% { max-height: 0; opacity: 0; }
+  }
+  @keyframes t3 {
+    0%, 62%  { max-height: 0; opacity: 0; }
+    65%, 94% { max-height: 8em; opacity: 1; }
+    95%, 100% { max-height: 0; opacity: 0; }
+  }
+  @keyframes t4 {
+    0%, 70%  { max-height: 0; opacity: 0; }
+    73%, 94% { max-height: 8em; opacity: 1; }
+    95%, 100% { max-height: 0; opacity: 0; }
+  }
+  @keyframes tspin {
+    0%, 70%  { max-height: 2em; opacity: 1; }
+    72%, 100% { max-height: 0; opacity: 0; }
+  }
+  @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  /* テストが通った直後、常駐している Slack に返事が届く */
+  @keyframes newmsg {
+    0%, 75%  { max-height: 0; opacity: 0; padding: 0; background: rgba(255, 196, 0, 0); }
+    78%      { max-height: 6em; opacity: 1; padding: 0.5cqw 0; background: rgba(255, 196, 0, 0.22); }
+    90%, 100% { max-height: 6em; opacity: 1; padding: 0.5cqw 0; background: rgba(255, 196, 0, 0); }
   }
   @keyframes chip1 {
     0%, 7%   { opacity: 0; transform: translateX(-50%) translateY(6px); }
@@ -203,8 +368,9 @@
     26%, 33% { opacity: 1; transform: translateX(-50%) translateY(0); }
     37%, 100% { opacity: 0; transform: translateX(-50%) translateY(0); }
   }
+  /* 動きを減らす設定では、全部そろった完成状態で止める */
   @media (prefers-reduced-motion: reduce) {
-    .stage, .stage * { animation-play-state: paused !important; }
+    .stage, .stage * { animation-delay: -9.2s !important; animation-play-state: paused !important; }
   }
 
   /* ---- Floating header ---- */
@@ -409,22 +575,96 @@
 </header>
 
 <div class="demo wrap">
-  <div class="demo-frame" id="demo-slot" role="img" aria-label="Animation: scattered windows snap into a reserved strip on the right and share it evenly; a window dragged onto the strip is pushed back">
+  <div class="demo-frame" id="demo-slot" role="img" aria-label="Animation: Slack and Google Calendar snap into a reserved strip on the right and share it evenly while Claude Code keeps working in a terminal on the left; dragging the terminal onto the strip pushes it back">
     <div class="stage">
-      <div class="menubar"></div>
+      <div class="menubar">
+        <b>Terminal</b><span>Shell</span><span>Edit</span><span>View</span><span>Window</span><span>Help</span>
+        <span class="mb-right">
+          <svg viewBox="0 0 512 512" aria-hidden="true"><rect x="40" y="96" width="260" height="320" rx="40" fill="none" stroke="#1d1d1f" stroke-width="36"/><rect x="332" y="96" width="140" height="148" rx="30" fill="#1d1d1f"/><rect x="332" y="268" width="140" height="148" rx="30" fill="#1d1d1f"/></svg>
+          <span>Tue 10:24</span>
+        </span>
+      </div>
       <div class="zone"></div>
-      <div class="win browser">
-        <div class="bar"><span class="dots"></span>Browser</div>
-        <div class="lines"><i></i><i></i><i></i></div>
+
+      <div class="win claude">
+        <div class="bar"><span class="dots"></span>claude — ~/acme-web</div>
+        <div class="term">
+          <div class="welcome"><span class="accent">✻</span> Welcome to <span class="me">Claude Code</span>!<br><span class="dim">cwd: ~/acme-web</span></div>
+          <div><span class="dim">&gt;</span> <span class="me">Fix the flaky login test</span></div>
+          <div class="t1">
+            <div><span class="ok">⏺</span> Read(src/auth/session.ts)</div>
+            <div class="in dim">⎿  Read 142 lines</div>
+          </div>
+          <div class="t2">
+            <div><span class="ok">⏺</span> Update(src/auth/session.ts)</div>
+            <div class="in dim">⎿  Updated with 1 addition and 1 removal</div>
+            <div class="in2"><span class="del">42 -   if (expiresAt &lt; Date.now()) {</span></div>
+            <div class="in2"><span class="add">42 +   if (expiresAt &lt;= clock.now()) {</span></div>
+          </div>
+          <div class="t3">
+            <div><span class="ok">⏺</span> Bash(npm test -- login)</div>
+            <div class="in"><span class="dim">⎿</span>  <span class="ok">✓ 18 passed</span></div>
+          </div>
+          <div class="t4">
+            <div><span class="me">⏺</span> Fixed. Expiry now uses the injected clock, so the test no longer races.</div>
+            <div><span class="dim">&gt;</span> <span class="cursor"></span></div>
+          </div>
+          <div class="tspin"><span class="accent">✻ Working…</span> <span class="dim">(esc to interrupt)</span></div>
+        </div>
       </div>
-      <div class="win notes">
-        <div class="bar"><span class="dots"></span>Notes</div>
-        <div class="lines"><i></i><i></i><i></i></div>
+
+      <div class="win slack">
+        <div class="bar"><span class="dots"></span><span class="search">Search Acme</span></div>
+        <div class="sl">
+          <div class="sl-side">
+            <span class="ws">Acme</span>
+            <span># general</span>
+            <span class="on"># eng-web</span>
+            <span># design</span>
+            <span># random</span>
+          </div>
+          <div class="sl-main">
+            <div class="sl-head"># eng-web</div>
+            <div class="sl-msgs">
+              <div class="msg"><i class="av" style="--c:#e8912d">M</i><div><b>Maya</b><small>10:02</small><p>Login test failed on main again 😩</p></div></div>
+              <div class="msg"><i class="av" style="--c:#4a8fe7">S</i><div><b>Sam</b><small>10:11</small><p>Design review moved to 2pm</p></div></div>
+              <div class="msg new"><i class="av" style="--c:#e8912d">M</i><div><b>Maya</b><small>10:24</small><p>CI is green again, thanks! 🎉</p></div></div>
+            </div>
+            <div class="sl-compose">Message #eng-web</div>
+          </div>
+        </div>
       </div>
-      <div class="win terminal">
-        <div class="bar"><span class="dots"></span>Terminal</div>
-        <div class="lines"><i></i><i></i><i></i></div>
+
+      <div class="win gcal">
+        <div class="bar"><span class="dots"></span>Calendar</div>
+        <div class="gc-head"><span class="today">Today</span><b>September 2026</b></div>
+        <div class="gc-days">
+          <span></span>
+          <span>MON<b>21</b></span>
+          <span class="is-today">TUE<b>22</b></span>
+          <span>WED<b>23</b></span>
+        </div>
+        <div class="gc-body">
+          <div class="gc-hours">
+            <span style="top:16.67%">10 AM</span><span style="top:33.33%">11 AM</span><span style="top:50%">12 PM</span><span style="top:66.67%">1 PM</span><span style="top:83.33%">2 PM</span>
+          </div>
+          <div class="gc-col">
+            <div class="ev" style="--c:#7986cb;top:8.33%;height:16.67%">Sprint planning</div>
+            <div class="ev" style="--c:#33b679;top:50%;height:16.67%">Lunch</div>
+          </div>
+          <div class="gc-col">
+            <div class="ev" style="--c:#039be5;top:25%;height:8.33%">Standup</div>
+            <div class="ev" style="--c:#8e24aa;top:58.33%;height:8.33%">1:1 Maya</div>
+            <div class="ev" style="--c:#e67c73;top:83.33%;height:16.67%">Design review</div>
+            <div class="gc-now" style="top:23.33%"></div>
+          </div>
+          <div class="gc-col">
+            <div class="ev" style="--c:#f4511e;top:0;height:33.33%">Focus time</div>
+          </div>
+        </div>
       </div>
+
+      <svg class="pointer" viewBox="0 0 20 28" aria-hidden="true"><path d="M2 2 L2 22 L7 17.5 L10.5 25 L13.5 23.6 L10.2 16.3 L17 16.3 Z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
       <div class="chip chip1">⌃⌥⌘ →</div>
       <div class="chip chip2">⌃⌥⌘ →</div>
     </div>
