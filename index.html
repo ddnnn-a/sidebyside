@@ -525,6 +525,16 @@
 
 <script>
 (function () {
+  // フローティングヘッダーは機能なのでモーション設定に関係なく動かす
+  var bar = document.getElementById("floatbar");
+  var heroCta = document.querySelector(".hero .cta-row");
+  if (bar && heroCta && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      var out = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+      bar.classList.toggle("show", out);
+      bar.setAttribute("aria-hidden", out ? "false" : "true");
+    }, { threshold: 0 }).observe(heroCta);
+  }
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var targets = document.querySelectorAll(
     ".section-head, .tile, .steps li, .faq details, .price, .pricing ul, .pricing .btn, .demo-caption, footer p"
@@ -545,16 +555,6 @@
     });
   }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
   targets.forEach(function (el) { io.observe(el); });
-  // ヒーローの購入ボタンが見えなくなったらフローティングヘッダーを出す
-  var bar = document.getElementById("floatbar");
-  var heroCta = document.querySelector(".hero .cta-row");
-  if (bar && heroCta) {
-    new IntersectionObserver(function (entries) {
-      var out = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
-      bar.classList.toggle("show", out);
-      bar.setAttribute("aria-hidden", out ? "false" : "true");
-    }, { threshold: 0 }).observe(heroCta);
-  }
 })();
 </script>
 </body>
