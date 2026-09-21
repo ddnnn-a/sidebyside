@@ -416,8 +416,8 @@
   }
   .floatbar .name { color: #f5f5f7; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
   .floatbar .right { display: flex; align-items: center; gap: 14px; }
-  .floatbar .price { color: #86868b; font-size: 14px; }
-  .floatbar .buy {
+  .floatbar .os { color: #86868b; font-size: 14px; }
+  .floatbar .get {
     background: #0071e3;
     color: #fff;
     font-size: 14px;
@@ -426,17 +426,7 @@
     border-radius: 980px;
     text-decoration: none;
   }
-  .floatbar .buy:hover { background: #0077ed; }
-  .floatbar .dl {
-    background: rgba(255,255,255,0.14);
-    color: #f5f5f7;
-    font-size: 14px;
-    line-height: 1;
-    padding: 9px 18px;
-    border-radius: 980px;
-    text-decoration: none;
-  }
-  .floatbar .dl:hover { background: rgba(255,255,255,0.22); }
+  .floatbar .get:hover { background: #0077ed; }
 
   /* ---- Text animations ---- */
   .hero h1, .hero .cta-row, .hero .fineprint {
@@ -561,6 +551,9 @@
   footer a { color: var(--text-secondary); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
+  @media (max-width: 420px) {
+    .floatbar .os { display: none; }
+  }
   @media (max-width: 734px) {
     .hero h1 { font-size: 40px; }
     .hero .sub { font-size: 19px; }
@@ -575,8 +568,8 @@
 <div class="floatbar" id="floatbar" aria-hidden="true">
   <span class="name">SidePin</span>
   <span class="right">
-    <a class="dl" href="https://github.com/ddnnn-a/sidepin/releases/latest/download/SidePin.dmg">Download</a>
-    <a class="buy" href="https://buy.polar.sh/polar_cl_fU0BwZDv6YNs9AY599AOBSj0W2eXsQXDpxNgu4Wvm6Z">Buy — $9.99</a>
+    <span class="os">macOS 14 or later</span>
+    <a class="get" href="https://github.com/ddnnn-a/sidepin/releases/latest/download/SidePin.dmg">Download</a>
   </span>
 </div>
 
@@ -604,9 +597,9 @@
       <div class="zone"></div>
 
       <div class="win claude">
-        <div class="bar"><span class="dots"></span>claude — ~/acme-web</div>
+        <div class="bar"><span class="dots"></span>claude — ~/my-app</div>
         <div class="term">
-          <div class="welcome"><span class="accent">✻</span> Welcome to <span class="me">Claude Code</span>!<br><span class="dim">cwd: ~/acme-web</span></div>
+          <div class="welcome"><span class="accent">✻</span> Welcome to <span class="me">Claude Code</span>!<br><span class="dim">cwd: ~/my-app</span></div>
           <div><span class="dim">&gt;</span> <span class="me">Fix the flaky login test</span></div>
           <div class="t1">
             <div><span class="ok">⏺</span> Read(src/auth/session.ts)</div>
@@ -631,10 +624,10 @@
       </div>
 
       <div class="win slack">
-        <div class="bar"><span class="dots"></span><span class="search">Search Acme</span></div>
+        <div class="bar"><span class="dots"></span><span class="search">Search Team</span></div>
         <div class="sl">
           <div class="sl-side">
-            <span class="ws">Acme</span>
+            <span class="ws">Team</span>
             <span># general</span>
             <span class="on"># eng-web</span>
             <span># design</span>
@@ -759,8 +752,8 @@
       <li>All updates included</li>
       <li>No subscription. No account.</li>
     </ul>
-    <a class="btn" href="https://buy.polar.sh/polar_cl_fU0BwZDv6YNs9AY599AOBSj0W2eXsQXDpxNgu4Wvm6Z">Buy SidePin</a>
-    <p style="margin-top:14px"><a class="textlink" href="https://github.com/ddnnn-a/sidepin/releases/latest/download/SidePin.dmg">Or download first</a></p>
+    <a class="btn" href="https://github.com/ddnnn-a/sidepin/releases/latest/download/SidePin.dmg">Try it free for 24 hours</a>
+    <p style="margin-top:14px"><a class="textlink" href="https://buy.polar.sh/polar_cl_fU0BwZDv6YNs9AY599AOBSj0W2eXsQXDpxNgu4Wvm6Z">Ready to buy? Get a license — $9.99</a></p>
   </div>
 </section>
 
