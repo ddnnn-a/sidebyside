@@ -5,5 +5,15 @@
     <link>https://ddnnn-a.github.io/sidepin/appcast.xml</link>
     <description>Release notes for SidePin.</description>
     <language>en</language>
+    <item>
+        <title>Version 1.5</title>
+        <pubDate>Wed, 23 Sep 2026 10:33:50 +0000</pubDate>
+        <sparkle:version>6</sparkle:version>
+        <sparkle:shortVersionString>1.5</sparkle:shortVersionString>
+        <enclosure url="https://github.com/ddnnn-a/sidepin/releases/download/v1.5/SidePin.dmg"
+                   sparkle:edSignature="porxaz9+BVP764loGZouYISBpl/BkiHwoWTEJNwxP2mrf8dFN8oli2iBjDSXL1dn0g+yU0pUvYzKfTMyrpinDw=="
+                   length="2161849"
+                   type="application/octet-stream" />
+    </item>
   </channel>
 </rss>
