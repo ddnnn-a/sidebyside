@@ -6,6 +6,16 @@
     <description>Release notes for SidePin.</description>
     <language>en</language>
     <item>
+        <title>Version 1.5.2</title>
+        <pubDate>Wed, 23 Sep 2026 13:13:39 +0000</pubDate>
+        <sparkle:version>8</sparkle:version>
+        <sparkle:shortVersionString>1.5.2</sparkle:shortVersionString>
+        <enclosure url="https://github.com/ddnnn-a/sidepin/releases/download/v1.5.2/SidePin.dmg"
+                   sparkle:edSignature="zAa16JUQ7nxbrZqMLAqwm8mIsB890KAZTB31IoBcnAfWtwP4y3XQryR0KZ+q9+o+SYkZrgAs9AylA7AlFpO4Aw=="
+                   length="2177208"
+                   type="application/octet-stream" />
+    </item>
+    <item>
         <title>Version 1.5.1</title>
         <pubDate>Wed, 23 Sep 2026 12:31:21 +0000</pubDate>
         <sparkle:version>7</sparkle:version>
